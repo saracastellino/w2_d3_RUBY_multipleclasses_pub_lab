@@ -5,17 +5,19 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 require_relative('../drink')
 require_relative('../customer')
 require_relative('../pub')
+require_relative('../food')
 
 class TestPub < Minitest::Test
 
   def setup
-    @drinks1 = Drink.new("Beer", 8, 5)
-    @drinks2 = Drink.new("Gin", 10, 6)
-    @drinks3 = Drink.new("Whiskey", 12, 7)
+    @drinks1 = Drink.new("Beer", 8, 5, 100)
+    @drinks2 = Drink.new("Gin", 10, 6, 80)
+    @drinks3 = Drink.new("Whiskey", 12, 7, 45)
     @drinks = [@drinks1, @drinks2, @drinks3]
     @pub1 = Pub.new("Clansman", 5000, @drinks)
     @customer1 = Customer.new("Steven", 50, 30)
     @customer2 = Customer.new("Sara", 50, 20)
+    @food1 = Food.new("Hamburger", 7, 3)
   end
 
   def test_get_name
@@ -44,10 +46,14 @@ class TestPub < Minitest::Test
     assert_equal(5008, @pub1.till)
   end
 
-  def test_can_t_serve
-    @pub1.can_serve(@drinks3, @customer2)
+  def test_can_t_serve_drunkness
+    @customer1.increase_drunk_level(@drinks2)
+    @pub1.can_serve(@drinks2, @customer1)
     assert_equal(5000, @pub1.till)
   end
 
-  
+  def test_can_t_serve_for_age
+    @pub1.can_serve(@drinks3, @customer2)
+    assert_equal(5000, @pub1.till)
+  end
 end
