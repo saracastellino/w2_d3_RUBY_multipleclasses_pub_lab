@@ -19,6 +19,7 @@ class TestCustomer < Minitest::Test
   end
 
   def test_get_name
+    p @drinks1
     assert_equal("Steven", @customer1.name)
   end
 
