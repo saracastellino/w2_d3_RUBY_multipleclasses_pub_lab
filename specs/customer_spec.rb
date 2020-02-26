@@ -9,11 +9,11 @@ require_relative('../pub')
 class TestCustomer < Minitest::Test
 
   def setup
-    @drinks1 = Drink.new("Beer", 8)
-    @drinks2 = Drink.new("Gin", 10)
-    @drinks3 = Drink.new("Whiskey", 12)
+    @drinks1 = Drink.new("Beer", 8, 5)
+    @drinks2 = Drink.new("Gin", 10, 6)
+    @drinks3 = Drink.new("Whiskey", 12, 7)
     @drinks = [@drinks1, @drinks2, @drinks3]
-    @customer1 = Customer.new("Steven", 50,)
+    @customer1 = Customer.new("Steven", 50, 30)
   end
 
   def test_get_name
@@ -25,5 +25,13 @@ class TestCustomer < Minitest::Test
     assert_equal(42, @customer1.wallet)
   end
 
+  def test_check_age
+    assert_equal(30, @customer1.age)
+  end
+
+  def test_increase_drunk_level
+    @customer1.increase_drunk_level(@drink2)
+    assert_equal(6, @customer1.drunk_level)
+  end
 
 end

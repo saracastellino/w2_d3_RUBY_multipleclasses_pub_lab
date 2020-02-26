@@ -9,10 +9,11 @@ require_relative('../pub')
 class TestDrink < Minitest::Test
 
   def setup
-    @drinks1 = Drink.new("Beer", 8)
-    @drinks2 = Drink.new("Gin", 10)
-    @drinks3 = Drink.new("Whiskey", 12)
+    @drinks1 = Drink.new("Beer", 8, 5)
+    @drinks2 = Drink.new("Gin", 10, 6)
+    @drinks3 = Drink.new("Whiskey", 12, 7)
     @pub1 = Pub.new("Clansman", 5000, @drinks)
+    @customer1 = Customer.new("Steven", 50, 30)
   end
 
   def test_get_name
