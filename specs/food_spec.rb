@@ -28,13 +28,5 @@ class TestFood < Minitest::Test
     assert_equal(7, @food1.price)
   end
 
-  def method_name
-
-  end
-
-
-
-
-
 
 end

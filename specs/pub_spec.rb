@@ -10,25 +10,10 @@ require_relative('../food')
 class TestPub < Minitest::Test
 
   def setup
-    @stock = [
-    drinks1 = {
-        name: "Beer",
-      price: 8,
-      alcohol_level: 5,
-      quantity: 100},
-    drinks2 = {
-        name: "Gin",
-      price: 10,
-      alcohol_level: 6,
-      quantity: 80},
-    drinks3 =
-        {name: "Whiskey",
-        price: 12,
-        alcohol_level: 7,
-        quantity: 45}
-      ]
-
-
+    @drinks1 = Drink.new("Beer", 8, 5, 100)
+    @drinks2 = Drink.new("Gin", 10, 6, 80)
+    @drinks3 = Drink.new("Whiskey", 12, 7, 45)
+    @drinks = [@drinks1, @drinks2, @drinks3]
     @pub1 = Pub.new("Clansman", 5000, @drinks)
     @customer1 = Customer.new("Steven", 50, 30)
     @customer2 = Customer.new("Sara", 50, 20)
@@ -36,11 +21,11 @@ class TestPub < Minitest::Test
   end
 
   def test_get_name
-    assert_equal("Clansman", @pub1[drinks1][:name])
+    assert_equal("Clansman", @pub1.name)
   end
 
   def test_get_drinks
-    assert_equal(drinks1, @pub1.drinks)
+    assert_equal(@drinks, @pub1.drinks)
   end
 
   def test_number_of_drinks
@@ -48,7 +33,7 @@ class TestPub < Minitest::Test
   end
 
   def test_increase_till
-    @pub1.increase_till(drinks1)
+    @pub1.increase_till(@drinks1)
     assert_equal(5008, @pub1.till)
   end
 
@@ -70,5 +55,13 @@ class TestPub < Minitest::Test
   def test_can_t_serve_for_age
     @pub1.can_serve(@drinks3, @customer2)
     assert_equal(5000, @pub1.till)
+  end
+
+  def test_calculate_stock
+    assert_equal(225, @pub1.calculate_stock(@drinks))
+  end
+
+  def test_calculate_stock_value
+    assert_equal(2140, @pub1.calculate_stock_value(@drinks))
   end
 end
