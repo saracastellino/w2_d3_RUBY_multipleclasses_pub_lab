@@ -64,4 +64,6 @@ class TestPub < Minitest::Test
   def test_calculate_stock_value
     assert_equal(2140, @pub1.calculate_stock_value(@drinks))
   end
+
+
 end
